@@ -1,7 +1,9 @@
-package object.handler.objects;
+package object.handler.entities;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import database.api.interfaces.IResources;
 
@@ -15,6 +17,8 @@ public class User implements IResources {
 	private String username;
 	private String password;
 	private String joined;
+	
+	private List<User> list;
 
 	public long getId() {
 		return id;
@@ -71,13 +75,22 @@ public class User implements IResources {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
 	public String getJoined() {
 		return joined;
 	}
 
 	public void setJoined(String joined) {
 		this.joined = joined;
+	}
+	
+
+	public List<User> getList() {
+		return list;
+	}
+
+	public void setList(List<User> list) {
+		this.list = list;
 	}
 
 	@Override
@@ -93,4 +106,22 @@ public class User implements IResources {
 			setJoined(rs.getString("joined"));
 		}
 	}
+	
+	@Override
+	public void bindList(ResultSet rs) throws SQLException {
+		list = new ArrayList<User>();
+		while (rs.next()) {
+			User item = new User();
+			item.setId(rs.getLong("id"));
+			item.setFirstname(rs.getString("firstname"));
+			item.setSurname(rs.getString("surname"));
+			item.setEmail(rs.getString("email"));
+			item.setPhone(rs.getString("phone"));
+			item.setUsername(rs.getString("username"));
+			item.setPassword(rs.getString("password"));
+			item.setJoined(rs.getString("joined"));
+			list.add(item);
+		}
+	}
+
 }
