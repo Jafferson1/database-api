@@ -1,5 +1,6 @@
 package database.api.execute;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,7 +17,8 @@ public class Execute {
 
 	public static int make(Object[] o, String query) throws SQLException, ClassCastException {
 		int id = 0;
-		try (PreparedStatement statement = Manager.getConn().prepareStatement(query)) {
+		try (Connection connection = Manager.getConn();
+				PreparedStatement statement = connection.prepareStatement(query)) {
 			int i = 0;
 			int s = o.length;
 			for (i = 0; i < s; i++) {
@@ -50,7 +52,8 @@ public class Execute {
 
 	public static void fetch(IResources in, Object[] o, String query) throws SQLException, ClassCastException {
 		ResultSet rs = null;
-		try (PreparedStatement statement = Manager.getConn().prepareStatement(query)) {
+		try (Connection connection = Manager.getConn();
+				PreparedStatement statement = connection.prepareStatement(query)) {
 			int i = 0;
 			int s = o.length;
 			for (i = 0; i < s; i++) {
@@ -80,7 +83,8 @@ public class Execute {
 	
 	public static void fetchList(IResources in, Object[] o, String query) throws SQLException, ClassCastException {
 		ResultSet rs = null;
-		try (PreparedStatement statement = Manager.getConn().prepareStatement(query)) {
+		try (Connection connection = Manager.getConn();
+				PreparedStatement statement = connection.prepareStatement(query)) {
 			int i = 0;
 			int s = o.length;
 			for (i = 0; i < s; i++) {

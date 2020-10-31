@@ -17,9 +17,9 @@ public class Manager {
     static {
 
         HikariConfig config = new HikariConfig();
-        config.setJdbcUrl("jdbc:mysql://localhost:3306/projects_test?useSSL=false");
-        config.setUsername("root");
-        config.setPassword("1234");  
+        config.setJdbcUrl("jdbc:mysql://localhost:3306/{your_database}?useSSL=false");
+        config.setUsername("{your_user}");
+        config.setPassword("{your_password}");  
         config.setDriverClassName("com.mysql.cj.jdbc.Driver");
         
         config.setMaximumPoolSize(10);
